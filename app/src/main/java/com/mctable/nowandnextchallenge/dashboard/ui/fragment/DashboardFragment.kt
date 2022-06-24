@@ -8,28 +8,18 @@ import android.view.View
 import android.view.ViewGroup
 import com.mctable.nowandnextchallenge.R
 import com.mctable.nowandnextchallenge.dashboard.ui.viewmodel.DashboardViewModel
+import com.mctable.nowandnextchallenge.databinding.FragmentDashboardBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DashboardFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = DashboardFragment()
-    }
+class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
 
     private lateinit var viewModel: DashboardViewModel
+    private lateinit var binding: FragmentDashboardBinding
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.fragment_main, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this)[DashboardViewModel::class.java]
+        binding = FragmentDashboardBinding.bind(view)
     }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(DashboardViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
-
 }

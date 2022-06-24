@@ -9,5 +9,5 @@
         android:id="@+id/dashboardFragment"
         android:name="com.mctable.nowandnextchallenge.dashboard.ui.fragment.DashboardFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_dashboard" />
 </navigation>
