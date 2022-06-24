@@ -7,15 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.mctable.nowandnextchallenge.R
-import com.mctable.nowandnextchallenge.dashboard.ui.viewmodel.MainViewModel
+import com.mctable.nowandnextchallenge.dashboard.ui.viewmodel.DashboardViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-class MainFragment : Fragment() {
+@AndroidEntryPoint
+class DashboardFragment : Fragment() {
 
     companion object {
-        fun newInstance() = MainFragment()
+        fun newInstance() = DashboardFragment()
     }
 
-    private lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: DashboardViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,7 +28,7 @@ class MainFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(DashboardViewModel::class.java)
         // TODO: Use the ViewModel
     }
 
