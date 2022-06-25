@@ -21,7 +21,4 @@ object WebServiceModule {
     @Provides
     fun getChannelsWebService(retrofit: Retrofit) = retrofit.create(ChannelsWebService::class.java)
 
-    @Provides
-    fun getChannelsRepository(service: ChannelsWebService) = ChannelsRepository(service)
-
 }

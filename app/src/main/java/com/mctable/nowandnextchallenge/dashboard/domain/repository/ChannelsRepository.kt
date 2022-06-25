@@ -12,17 +12,12 @@ class ChannelsRepository @Inject constructor(
 ) : BaseRepository() {
 
     suspend fun getChannelsList(skip: String?): ChannelsResponse? {
-        return try {
-            withContext(Dispatchers.Default) {
-                checkResponse(
-                    webService.getChannelsList(
-                        skip = skip
-                    )
+        return withContext(Dispatchers.Default) {
+            checkResponse(
+                webService.getChannelsList(
+                    skip = skip
                 )
-            }
-        } catch (e: Exception) {
-            println(e)
-            null
+            )
         }
     }
 }
