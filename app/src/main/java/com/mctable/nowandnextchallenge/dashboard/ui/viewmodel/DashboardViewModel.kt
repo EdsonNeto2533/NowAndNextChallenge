@@ -16,7 +16,11 @@ class DashboardViewModel @Inject constructor(
     private val getChannelsListUseCase: GetChannelsListUseCase
 ) : ViewModel() {
 
-    private val skip = 10
+    private var skip = 10
+    private var isFirstTime = true
+
+    private val _setupRecyclerViewScrollListener = MutableLiveData<Unit>()
+    val setupRecyclerViewScrollListener: LiveData<Unit> = _setupRecyclerViewScrollListener
 
     private val _channelList = MutableLiveData<List<ChannelModel>>()
     val channelList: LiveData<List<ChannelModel>> = _channelList
@@ -29,6 +33,10 @@ class DashboardViewModel @Inject constructor(
         try {
             viewModelScope.launch {
                 _channelList.value = getChannelsListUseCase.getChannels(null)?.channelsList
+                if (isFirstTime) {
+                    _setupRecyclerViewScrollListener.value = Unit
+                    isFirstTime = false
+                }
             }
         } catch (e: Exception) {
             println(e)
@@ -37,7 +45,8 @@ class DashboardViewModel @Inject constructor(
 
     fun loadMore() {
         viewModelScope.launch {
-            getChannelsListUseCase.getChannels(skip.toString())
+            _channelList.value = getChannelsListUseCase.getChannels(skip.toString())?.channelsList
+            skip += 10
         }
     }
 }

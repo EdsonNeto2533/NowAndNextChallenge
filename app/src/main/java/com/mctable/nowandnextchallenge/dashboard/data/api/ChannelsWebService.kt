@@ -17,7 +17,7 @@ interface ChannelsWebService {
         @Query("filter") filter: String = AppConstants.DEFAULT_FILTER,
         @Query("orderby") orderBy: String = AppConstants.DEFAULT_ORDINATION,
         @Query("inlinecount") inlineCount: String = AppConstants.DEFAULT_INLINE_COUNT,
-        @Query("skip") skip: String?
+        @Query("${'$'}skip") skip: String?
     ): Response<ChannelsResponse>
 
     @GET

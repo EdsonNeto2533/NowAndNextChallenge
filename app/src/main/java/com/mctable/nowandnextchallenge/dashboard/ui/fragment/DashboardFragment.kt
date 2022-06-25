@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.mctable.nowandnextchallenge.R
 import com.mctable.nowandnextchallenge.dashboard.ui.adapter.ChannelsAdapter
 import com.mctable.nowandnextchallenge.dashboard.ui.viewmodel.DashboardViewModel
@@ -26,12 +27,34 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
         binding = FragmentDashboardBinding.bind(view)
         setupRecyclerView()
         setupObservers()
+        setupScrollListener()
     }
 
     private fun setupObservers() {
         viewModel.channelList.observe(viewLifecycleOwner) {
             adapter.loadItems(it)
+            binding.pbLoading.visibility = View.GONE
         }
+
+        viewModel.setupRecyclerViewScrollListener.observe(viewLifecycleOwner) {
+
+        }
+    }
+
+    private fun setupScrollListener() {
+        binding.rvChannels.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+
+                if (newState == RecyclerView.SCROLL_STATE_IDLE
+                    && !recyclerView.canScrollHorizontally(1)
+                    && binding.pbLoading.visibility == View.GONE
+                ) {
+                    viewModel.loadMore()
+                    binding.pbLoading.visibility = View.VISIBLE
+                }
+            }
+        })
     }
 
     private fun setupRecyclerView() {
