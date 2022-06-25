@@ -2,6 +2,7 @@ package com.mctable.nowandnextchallenge.dashboard.data.api
 
 import com.mctable.nowandnextchallenge.commons.constants.AppConstants
 import com.mctable.nowandnextchallenge.dashboard.data.response.ChannelsResponse
+import com.mctable.nowandnextchallenge.dashboard.data.response.ProgramBaseResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -16,4 +17,11 @@ interface ChannelsWebService {
         @Query("inlinecount") inlineCount: String = AppConstants.DEFAULT_INLINE_COUNT,
         @Query("skip") skip: String?
     ): Response<ChannelsResponse>
+
+    @GET("Program/v9/Programs/NowAndNextLiveChannelPrograms")
+    suspend fun getProgramsDetails(
+        @Query("UserAgent") userAgent: String = AppConstants.DEFAULT_USER_AGENT,
+        @Query("filter") filter: String,
+        @Query("orderby") orderBy: String = AppConstants.DEFAULT_ORDINATION,
+    ): Response<ProgramBaseResponse>
 }

@@ -3,18 +3,25 @@ package com.mctable.nowandnextchallenge.dashboard.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mctable.nowandnextchallenge.dashboard.domain.repository.ChannelsRepository
+import com.mctable.nowandnextchallenge.dashboard.domain.usecase.GetChannelsListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class DashboardViewModel @Inject constructor(
-    private val channelsRepository: ChannelsRepository
+    private val getChannelsListUseCase: GetChannelsListUseCase
 ) : ViewModel() {
 
     fun getChannels() {
-        viewModelScope.launch {
-            val aux = channelsRepository.getChannelsList(null)
+        try {
+            viewModelScope.launch {
+                val aux = getChannelsListUseCase.getChannels(null)
+                println(aux)
+            }
+        } catch (e: Exception) {
+            println(e)
         }
+
     }
 }

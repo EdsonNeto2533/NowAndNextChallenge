@@ -2,7 +2,7 @@ package com.mctable.nowandnextchallenge.dashboard.domain.model
 
 data class ChannelBaseModel(
     val channelsList: List<ChannelModel>,
-    val nextPage: String
+    val nextPage: String?
 )
 
 data class ChannelModel(
@@ -10,5 +10,5 @@ data class ChannelModel(
     val callLetter: String,
     val nowPlaying: String,
     val nextProgram: String,
-    val image: String
+    val image: String?
 )
