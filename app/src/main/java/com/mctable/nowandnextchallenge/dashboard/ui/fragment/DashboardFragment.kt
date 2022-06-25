@@ -21,5 +21,6 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[DashboardViewModel::class.java]
         binding = FragmentDashboardBinding.bind(view)
+        viewModel.getChannels()
     }
 }
