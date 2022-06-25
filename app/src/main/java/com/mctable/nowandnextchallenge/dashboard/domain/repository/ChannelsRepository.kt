@@ -2,6 +2,7 @@ package com.mctable.nowandnextchallenge.dashboard.domain.repository
 
 import com.mctable.nowandnextchallenge.commons.constants.AppConstants
 import com.mctable.nowandnextchallenge.commons.utils.baseClasses.BaseRepository
+import com.mctable.nowandnextchallenge.commons.utils.generics.GenericFunctions
 import com.mctable.nowandnextchallenge.dashboard.data.api.ChannelsWebService
 import com.mctable.nowandnextchallenge.dashboard.data.response.ChannelsResponse
 import com.mctable.nowandnextchallenge.dashboard.data.response.ProgramBaseResponse
@@ -28,7 +29,7 @@ class ChannelsRepository @Inject constructor(
         return withContext(Dispatchers.Default) {
             checkResponse(
                 webService.getProgramsDetails(
-                    filter = AppConstants.getCallLetter(callLetter)
+                    url = GenericFunctions.getProgramEndpoint(callLetter)
                 )
             )
         }

@@ -1,5 +1,6 @@
 package com.mctable.nowandnextchallenge.dashboard.data.mapper
 
+import com.mctable.nowandnextchallenge.commons.utils.generics.GenericFunctions
 import com.mctable.nowandnextchallenge.commons.utils.interfaces.IMapper
 import com.mctable.nowandnextchallenge.dashboard.domain.model.ChannelModel
 import com.mctable.nowandnextchallenge.dashboard.domain.model.ChannelStructureModel
@@ -15,7 +16,10 @@ class GetChannelBaseModelMapper : IMapper<ChannelStructureModel, List<ChannelMod
                     callLetter = channel.callLetter,
                     nowPlaying = data.programList[index].first.title,
                     nextProgram = data.programList[index].second.title,
-                    image = null
+                    image = GenericFunctions.getImage(
+                        data.programList[index].first.title,
+                        channel.callLetter
+                    )
                 )
             )
         }

@@ -1,6 +1,7 @@
 package com.mctable.nowandnextchallenge.dashboard.domain.usecase
 
 import com.mctable.nowandnextchallenge.dashboard.data.mapper.GetChannelBaseModelMapper
+import com.mctable.nowandnextchallenge.dashboard.data.response.ChannelsResponse
 import com.mctable.nowandnextchallenge.dashboard.data.response.ProgramResponse
 import com.mctable.nowandnextchallenge.dashboard.domain.model.ChannelBaseModel
 import com.mctable.nowandnextchallenge.dashboard.domain.model.ChannelStructureModel
@@ -13,30 +14,33 @@ class GetChannelsListUseCase @Inject constructor(
 
     private val programList = mutableListOf<Pair<ProgramResponse, ProgramResponse>>()
     private val mapper = GetChannelBaseModelMapper()
-    private var aux: ChannelBaseModel? = null
 
     suspend fun getChannels(skip: String?): ChannelBaseModel? {
         val channelsList = repository.getChannelsList(skip)
 
-        channelsList?.channelsList?.forEach {
-            val response = repository.getProgramDetails(it.callLetter)
-            response?.let { program ->
-                programList.add(Pair(program.programList[0], program.programList[1]))
-            }
+        getPrograms(channelsList)
 
-        }
-        channelsList?.let {
-            aux = ChannelBaseModel(
+        return channelsList?.let {
+            ChannelBaseModel(
                 channelsList = mapper.transform(
                     ChannelStructureModel(
                         it.channelsList,
                         programList
                     )
-                ), nextPage = it.nextPageLink
+                )
             )
 
         }
+    }
 
-        return aux
+    private suspend fun getPrograms(channelsList: ChannelsResponse?) {
+        channelsList?.channelsList?.forEach { channel ->
+            val programResponse = repository.getProgramDetails(channel.callLetter)
+
+            programResponse?.let { program ->
+                programList.add(Pair(program.programList[0], program.programList[1]))
+            }
+
+        }
     }
 }

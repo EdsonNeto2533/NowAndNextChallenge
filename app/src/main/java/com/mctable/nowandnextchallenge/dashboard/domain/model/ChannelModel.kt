@@ -2,7 +2,6 @@ package com.mctable.nowandnextchallenge.dashboard.domain.model
 
 data class ChannelBaseModel(
     val channelsList: List<ChannelModel>,
-    val nextPage: String?
 )
 
 data class ChannelModel(
