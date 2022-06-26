@@ -47,7 +47,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
                 super.onScrollStateChanged(recyclerView, newState)
 
                 if (newState == RecyclerView.SCROLL_STATE_IDLE
-                    && !recyclerView.canScrollHorizontally(1)
+                    && !recyclerView.canScrollVertically(1)
                     && binding.pbLoading.visibility == View.GONE
                 ) {
                     viewModel.loadMore()
