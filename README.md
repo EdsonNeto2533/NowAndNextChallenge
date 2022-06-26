@@ -20,7 +20,7 @@ The following technologies and frameworks were used to create the APP:
 
 - [Kotlin](https://kotlinlang.org)
 - [Coil](https://github.com/coil-kt/coil)
-- [Coroutines](https://developer.android.com/kotlin/coroutines?gclid=CjwKCAjwh-CVBhB8EiwAjFEPGQnuqJJlI56jCiEmfwBqPFlNpdMLkFMdv4dkSR-OaCSjB6YbSnuQkBoCVgwQAvD_BwE&gclsrc=aw.ds))
+- [Coroutines](https://developer.android.com/kotlin/coroutines?gclid=CjwKCAjwh-CVBhB8EiwAjFEPGQnuqJJlI56jCiEmfwBqPFlNpdMLkFMdv4dkSR-OaCSjB6YbSnuQkBoCVgwQAvD_BwE&gclsrc=aw.ds)
 - [Retrofit](https://square.github.io/retrofit/)
 - [Hilt](https://developer.android.com/training/dependency-injection/hilt-android?hl=pt-br)
 
