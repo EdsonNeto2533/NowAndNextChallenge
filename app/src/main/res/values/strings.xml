@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">NowAndNextChallenge</string>
+
+    <string name="dashboard_error_bottom_sheet_title">Unfortunately whe had and error</string>
+    <string name="dashboard_error_bottom_sheet_description">Please try again latter, maybe our servers are busy</string>
+    <string name="dashboard_error_bottom_sheet_button_text">Try again</string>
 </resources>

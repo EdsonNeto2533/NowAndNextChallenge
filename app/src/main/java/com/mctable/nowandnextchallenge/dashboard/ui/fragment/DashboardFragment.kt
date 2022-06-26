@@ -9,6 +9,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mctable.nowandnextchallenge.R
+import com.mctable.nowandnextchallenge.commons.views.ErrorBottomSheet
+import com.mctable.nowandnextchallenge.commons.views.ErrorBottomSheetModel
+import com.mctable.nowandnextchallenge.dashboard.ui.MainActivity
 import com.mctable.nowandnextchallenge.dashboard.ui.adapter.ChannelsAdapter
 import com.mctable.nowandnextchallenge.dashboard.ui.viewmodel.DashboardViewModel
 import com.mctable.nowandnextchallenge.databinding.FragmentDashboardBinding
@@ -27,7 +30,6 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
         binding = FragmentDashboardBinding.bind(view)
         setupRecyclerView()
         setupObservers()
-        setupScrollListener()
     }
 
     private fun setupObservers() {
@@ -37,7 +39,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
         }
 
         viewModel.setupRecyclerViewScrollListener.observe(viewLifecycleOwner) {
-
+            setupScrollListener()
         }
     }
 
