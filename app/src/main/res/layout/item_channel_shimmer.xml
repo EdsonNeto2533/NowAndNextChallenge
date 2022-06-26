@@ -1,73 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="10dp">
+    android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/iv_channel_banner"
+        <View
+            android:id="@+id/image_shimmer"
             android:layout_width="0dp"
             android:layout_height="100dp"
             android:layout_marginVertical="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="16dp"
-            android:scaleType="fitXY"
+            android:background="@color/shimmer_background"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/tv_channel_callLetter"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@mipmap/ic_launcher" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+        <View
             android:id="@+id/tv_channel_callLetter"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
             android:layout_marginEnd="16dp"
+            android:background="@color/shimmer_background"
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@id/tv_now_playing"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toEndOf="@id/iv_channel_banner"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="FOX" />
+            app:layout_constraintStart_toEndOf="@id/image_shimmer"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+        <View
             android:id="@+id/tv_now_playing"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
             android:layout_marginEnd="16dp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textSize="16sp"
-            android:textStyle="bold"
+            android:background="@color/shimmer_background"
             app:layout_constraintBottom_toTopOf="@id/tv_next_program"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/tv_channel_callLetter"
-            app:layout_constraintTop_toBottomOf="@id/tv_channel_callLetter"
-            tools:text="Now playing example" />
+            app:layout_constraintTop_toBottomOf="@id/tv_channel_callLetter" />
 
-        <TextView
+        <View
             android:id="@+id/tv_next_program"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
             android:layout_marginEnd="16dp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textSize="14sp"
-            android:textStyle="bold"
+            android:background="@color/shimmer_background"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/tv_channel_callLetter"
-            app:layout_constraintTop_toBottomOf="@id/tv_now_playing"
-            tools:text="Next program example" />
-
+            app:layout_constraintTop_toBottomOf="@id/tv_now_playing" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-</com.google.android.material.card.MaterialCardView>
+</com.facebook.shimmer.ShimmerFrameLayout>
