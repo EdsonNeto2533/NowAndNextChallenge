@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mctable.nowandnextchallenge.R
 import com.mctable.nowandnextchallenge.commons.views.ErrorBottomSheet
 import com.mctable.nowandnextchallenge.commons.views.ErrorBottomSheetModel
+import com.mctable.nowandnextchallenge.dashboard.domain.sealedclass.ChannelsUIState
 import com.mctable.nowandnextchallenge.dashboard.ui.MainActivity
 import com.mctable.nowandnextchallenge.dashboard.ui.adapter.ChannelsAdapter
 import com.mctable.nowandnextchallenge.dashboard.ui.viewmodel.DashboardViewModel
@@ -33,9 +34,8 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
     }
 
     private fun setupObservers() {
-        viewModel.channelList.observe(viewLifecycleOwner) {
-            adapter.loadItems(it)
-            binding.pbLoading.visibility = View.GONE
+        viewModel.channelListState.observe(viewLifecycleOwner) {
+            handleChannelsListState(it)
         }
 
         viewModel.setupRecyclerViewScrollListener.observe(viewLifecycleOwner) {
@@ -63,5 +63,19 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
         binding.rvChannels.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.rvChannels.adapter = adapter
+    }
+
+    private fun handleChannelsListState(state: ChannelsUIState) {
+        when (state) {
+            is ChannelsUIState.Success -> {
+                adapter.loadItems(state.channelsList)
+                binding.pbLoading.visibility = View.GONE
+            }
+            ChannelsUIState.Error -> {
+                (requireActivity() as MainActivity).showErrorBottomSheet {
+                    viewModel.getChannels()
+                }
+            }
+        }
     }
 }

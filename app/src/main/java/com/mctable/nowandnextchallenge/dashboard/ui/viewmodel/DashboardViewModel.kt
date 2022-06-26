@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mctable.nowandnextchallenge.dashboard.domain.model.ChannelModel
 import com.mctable.nowandnextchallenge.dashboard.domain.repository.ChannelsRepository
+import com.mctable.nowandnextchallenge.dashboard.domain.sealedclass.ChannelsUIState
 import com.mctable.nowandnextchallenge.dashboard.domain.usecase.GetChannelsListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -22,31 +23,49 @@ class DashboardViewModel @Inject constructor(
     private val _setupRecyclerViewScrollListener = MutableLiveData<Unit>()
     val setupRecyclerViewScrollListener: LiveData<Unit> = _setupRecyclerViewScrollListener
 
-    private val _channelList = MutableLiveData<List<ChannelModel>>()
-    val channelList: LiveData<List<ChannelModel>> = _channelList
+    private val _channelListUIState = MutableLiveData<ChannelsUIState>()
+    val channelListState: LiveData<ChannelsUIState> = _channelListUIState
 
     init {
         getChannels()
     }
 
-    private fun getChannels() {
+    fun getChannels() {
         try {
             viewModelScope.launch {
-                _channelList.value = getChannelsListUseCase.getChannels(null)?.channelsList
-                if (isFirstTime) {
-                    _setupRecyclerViewScrollListener.value = Unit
-                    isFirstTime = false
+                val response = getChannelsListUseCase.getChannels(null)?.channelsList
+                response?.let {
+                    _channelListUIState.value = ChannelsUIState.Success(it)
+                    setupRecyclerScrollListener()
+                } ?: run {
+                    _channelListUIState.value = ChannelsUIState.Error
                 }
             }
         } catch (e: Exception) {
-            println(e)
+            _channelListUIState.value = ChannelsUIState.Error
+        }
+    }
+
+    private fun setupRecyclerScrollListener() {
+        if (isFirstTime) {
+            _setupRecyclerViewScrollListener.value = Unit
+            isFirstTime = false
         }
     }
 
     fun loadMore() {
-        viewModelScope.launch {
-            _channelList.value = getChannelsListUseCase.getChannels(skip.toString())?.channelsList
-            skip += 10
+        try {
+            viewModelScope.launch {
+                val response = getChannelsListUseCase.getChannels(skip.toString())?.channelsList
+                response?.let {
+                    _channelListUIState.value = ChannelsUIState.Success(it)
+                    skip += 10
+                } ?: run {
+                    _channelListUIState.value = ChannelsUIState.Error
+                }
+            }
+        } catch (e: Exception) {
+            _channelListUIState.value = ChannelsUIState.Error
         }
     }
 }
