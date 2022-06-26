@@ -35,7 +35,9 @@ class ChannelsAdapter : RecyclerView.Adapter<ChannelsAdapter.ProgramViewHolder>(
         private val binding = ItemChannelCardBinding.bind(itemView)
 
         fun bind(channelModel: ChannelModel) {
-            binding.ivChannelBanner.load(channelModel.image)
+            binding.ivChannelBanner.load(channelModel.image) {
+                placeholder(R.drawable.ic_loading_placeholder_svg)
+            }
             binding.tvNextProgram.text = channelModel.nextProgram
             binding.tvNowPlaying.text = channelModel.nowPlaying
             binding.tvChannelCallLetter.text = channelModel.callLetter
